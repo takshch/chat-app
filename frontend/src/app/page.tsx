@@ -3,6 +3,7 @@
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { useEffect, useMemo } from 'react';
+import PageLoading from '../components/PageLoading';
 
 export default function Home() {
   const router = useRouter();
@@ -13,14 +14,13 @@ export default function Home() {
   useEffect(() => {
     if (isLoading) return;
     if (isLoggedIn) return;
-
     router.push('/signin');
   }, [isLoading, isLoggedIn, router]);
 
   return (
     <div className="w-screen h-screen text-black bg-white flex justify-center">
       {isLoading ? (
-        <>Loading...</>
+        <PageLoading />
       ) : (
         <>{isLoggedIn ? <div>User is logged in</div> : <></>}</>
       )}
